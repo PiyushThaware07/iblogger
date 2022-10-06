@@ -1,0 +1,39 @@
+{% extends 'websites/home.html' %}
+
+{% block title %}<title>Code</title>{% endblock title %}
+
+{% block css %}
+.container .inputs
+{
+    height:40px;
+}
+{% endblock %}
+
+{% block cat %}
+{% for cat in cats %}
+<li><a class="dropdown-item" href="{% url 'blog-cat' cat.cat_id %}">{{cat.name}}</a></li>
+{% endfor %}
+{% endblock cat %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="container-fluid p-3">
+    <div class="container">
+        <h1><b>Contact Us</b></h1>
+        <form action="{% url 'contact-index' %}" method="post">{% csrf_token %}
+            <input type="text" name="name" placeholder="Enter Your Name" class="inputs col-lg-8 col-12 my-3 p-3"><br>
+            <input type="email" name="email" placeholder="Enter Your Email Address" class="inputs col-lg-8 col-12 mb-3 p-3"><br>
+            <textarea name="msg" cols="30" rows="7" placeholder="Enter Your Message" class="col-lg-8 col-12 mb-3 p-3"></textarea><br>
+            <a href=""><button type="submit" class="btn btn-primary">Submit</button></a>
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -10,6 +10,9 @@
     
     {% block title %}<title>Home</title>{% endblock title %}
 
+    <style>{% block css %}{% endblock css %}</style>
+    
+
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -47,7 +50,7 @@
                         <a class="nav-link" href="{% url 'about-index' %}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'code-index' %}">Codes</a>
+                        <a class="nav-link" href="{% url 'contact-index' %}">Contact</a>
                     </li>
                     {% comment %} Dynamic urls Method -1 {% endcomment %}
                     <li class="nav-item">
@@ -87,7 +90,7 @@
         <div class=" container col-xl-8 px-2">
             <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
                 <div class="col-10 col-sm-8 col-lg-6">
-                    <img src="../../../static/img/hummer.jpg" class="d-block mx-lg-auto img-fluid title-img" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+                    <img src="https://4kwallpapers.com/images/walls/thumbs_3t/57.jpg" class="d-block mx-lg-auto img-fluid title-img" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
                 </div>
                 <div class="col-lg-6">
                     <h2 class="display-5 fw-bold lh-1 mb-3">Blogs</h2>
@@ -109,7 +112,7 @@
                 </div>
 
                 <div class="col-10 col-sm-8 col-lg-6">
-                    <img src="../../../static/img/hummer.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+                    <img src="https://4kwallpapers.com/images/walls/thumbs_3t/8745.jpeg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
                 </div>
             </div>
         </div>
