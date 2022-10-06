@@ -27,13 +27,8 @@ SECRET_KEY = 'django-insecure-zhbuo9c^3p^%@^rjjfhumodf$lu81&96&70sh(uax9%!xtsp0g
 DEBUG = True
 
 ALLOWED_HOSTS = [
-<<<<<<< HEAD
     '127.0.0.1',
     'ibloggerweb.herokuapp.com'   
-=======
-    'ibloggerweb.herokuapp.com'
-    '127.0.0.1'
->>>>>>> def67fb25ec5388ca2ae04977e54613b105e62bb
 ]
 
 
