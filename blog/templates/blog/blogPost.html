@@ -1,0 +1,23 @@
+{% extends 'websites/home.html' %}
+
+{% block cat %}
+{% for cat in allcats %}
+<li><a class="dropdown-item" href="{% url 'blog-cat' cat.cat_id %}">{{cat.name}}</a></li>
+{% endfor %}
+{% endblock cat %}
+
+{% block content %}
+<div class="container-fluid text-dark mt-5 p-0">
+    <header>
+        <img
+            style="height:400px;width:100%;background:url('/media/{{post.img}}');background-repeat: no-repeat;background-position: center;background-size: cover;margin-top: -50px;">
+    </header>
+    <div class="container my-4">
+        <h1><b>{{post.title}}</b></h1>
+        <small>publish date : {{post.publish_date}}</small>
+        <h4>Author : <span class="text-danger"><small><b>{{post.author}}</b></small></span></h4>
+        <h5>Category/Sub-category : <small class="text-danger">{{post.category}}/{{post.sub_category}}</small></h5>
+        <p>{{post.content|safe}}</p>
+    </div>
+</div>
+{% endblock content %}

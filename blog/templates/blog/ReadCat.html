@@ -1,0 +1,43 @@
+{% extends 'websites/home.html' %}
+
+{% block title %}<title>Category</title>{% endblock title %}
+
+{% block cat %}
+{% for cat in allcats %}
+<li><a class="dropdown-item" href="{% url 'blog-cat' cat.cat_id %}">{{cat.name}}</a></li>
+{% endfor %}
+{% endblock cat %}
+
+{% block content %}
+<div class="p-4 p-md-5 mb-4 text-white row rounded bg-primary">
+    {% for blog in blogkey %}
+    {% if forloop.counter < 2 %}
+    <h1 class="text-center text-white"
+        style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: 600;">Blogs Relates to - {{blog.category}}</h1>
+   {% endif %}
+   {% empty %}
+   <h1 class="text-center text-white"
+        style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: 600;">No Blogs Exists</h1>
+   {% endfor %}    
+</div>
+
+<div class="container">
+    
+    <div class="row">
+
+        {% for blog in blogkey %}
+        <div class="card m-1" style="width: 17rem;">
+            <img style="width: 100%; height: 150px;"
+                src="/media/{{blog.img}}" class="card-img-top"  alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{blog.title}}</h5>
+                <p class="card-text">{{blog.content|truncatechars:50 | safe}}</p>
+                <a href="/blog/{{blog.slug}}" class="btn btn-primary">View Blogs</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+
+{% block fixed %}fixed-bottom{% endblock fixed %}

@@ -1,0 +1,65 @@
+{% extends 'websites/home.html' %}
+
+{% block title %}<title>Blog</title>{% endblock title %}
+
+{% block cat %}
+{% for cat in catkey %}
+<li><a class="dropdown-item" href="{% url 'blog-cat' cat.cat_id %}">{{cat.name}}</a></li>
+{% endfor %}
+{% endblock cat %}
+
+{% block content %}
+<div class="container-fluid p-5">
+    <div class="row">
+        {% for post in recentkey %}
+        {% if forloop.counter < 3 %}
+        {% if forloop.counter < 2 %}
+        <h1 class="my-5"><b>Latest <span class="text-primary">Blogs</span></b></h1>
+        {% endif %}
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-success">Author : {{post.author}}</strong>
+                    <h4 class="mb-0">{{post.title}}</h4>
+                    <div class="mb-1 text-muted">{{post.publish_date}}</div>
+                    <p class="mb-auto">{{post.content|truncatechars:100|safe}}</p>
+                    <a href="{{post.slug}}" class="stretched-link">Continue reading </a>
+                </div>
+                <div class="col-auto d-none d-xl-block">
+                    <img src="/media/{{post.img}}" alt="not loading" width="300" height="260">
+                </div>
+            </div>
+    </div>
+    {% endif %}
+    {% empty %}
+    <div class="emptyContainer mt-5">
+        <h1>No Post Yet !!!</h1>
+    </div>
+    {% endfor %}
+
+
+    
+    <div class="row">
+        {% for post in blogkey %}
+        {% if forloop.counter < 2 %}
+        <div class="box mt-5 mx-2" style="width: 100%;height: 2px;background-color: black;"></div>
+    <h1 class="my-5"><b>Previous <span class="text-primary">Blogs</span></b></h1>
+        {% endif %}
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">Author : {{post.author}}</strong>
+                    <h4 class="mb-0">{{post.title}}</h4>
+                    <div class="mb-1 text-muted">{{post.publish_date}}</div>
+                    <p class="card-text mb-auto">{{post.content|truncatechars:100|safe}}</p>
+                    <a href="{{post.slug}}" class="stretched-link">Continue reading</a>
+                </div>
+                <div class="col-auto d-none d-xl-block">
+                    <img src="/media/{{post.img}}" alt="not loading" width="300" height="260">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
