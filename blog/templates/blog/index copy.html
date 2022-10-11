@@ -8,7 +8,7 @@
     <h1><b>{{blog.title}}</b></h1>
     <small>publish date : {{blog.publish_date}}</small>
     <h4>Author : <span class="text-danger"><small><b>{{blog.author}}</b></small></span></h4>
-    <h5>Category/Sub-category : <small class="text-danger">{{blog.category}}/{{blog.sub_category}}</small></h5>
+    <h5>Category : <small class="text-danger">{{blog.category}}</small></h5>
    <p>{{blog.content}}</p>
    <img src="/media/{{blog.img}}" alt="Not Found" style="height:200px;width:300px">
    {% comment %}Method : 2 --> <img src="{{blog.img.url}}" alt="" style="height:100px;width:100px">  {% endcomment %}
