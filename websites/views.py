@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse
-from blog.models import Category
+from blog.models import Category,Blogs
 from .models import Contact
 # Messages
 from django.contrib import messages
@@ -33,3 +33,20 @@ def contact(request):
 
 def code(request):
     return HttpResponse("code")
+
+def search(request):
+
+    cats = Category.objects.all()
+    search_item = request.GET.get('query')
+    if len(search_item) > 50:
+        blog = Blogs.objects.none()
+    else:
+        blogTitle = Blogs.objects.filter(title__icontains = search_item)
+        blogContent = Blogs.objects.filter(content__icontains = search_item)
+        blogAuthor = Blogs.objects.filter(author__icontains = search_item)
+        blog = blogTitle.union(blogContent,blogAuthor)
+
+    if blog.count() == 0:
+        messages.error(request, "Please fill the search correctly")
+    dict = {'allPosts':blog,'query':search_item,'cats':cats}
+    return render(request, 'websites/search.html',dict)
