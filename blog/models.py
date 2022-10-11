@@ -23,7 +23,6 @@ class Blogs(models.Model):
 
     # category = models.CharField(max_length=100,null=True,default="")
     category = models.ForeignKey(Category, on_delete=models.CASCADE) #error occurs then commit and create new migrations
-    sub_category = models.CharField(max_length=100,default="")
     readtime = models.IntegerField(default=10)
 
     slug = models.CharField(max_length=40)
