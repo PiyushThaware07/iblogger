@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'websites',
     'blog',
-    'livereload',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
