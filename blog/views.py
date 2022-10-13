@@ -1,20 +1,34 @@
 from django.shortcuts import render
 from . models import Blogs,Category
+# Paginator 
+from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
     blog = Blogs.objects.all()
-    print(blog)
+
+    # Paginator
+    paginator = Paginator(blog, 1)
+    page_number = request.GET.get('page')
+    blog = paginator.get_page(page_number)
+    totalPages = blog.paginator.num_pages
+
     recent = Blogs.objects.all().order_by('-timeStamp')
     cat = Category.objects.all()
-    context = {'catkey':cat,'blogkey':blog,'recentkey':recent}
+    context = {'catkey':cat,'recentkey':recent,'blogkey':blog,'changePages':[n+1 for n in range(totalPages)]}
     return render(request, 'blog/index.html',context)
 
 def ReadCat(request,id):
     allCats = Category.objects.all()
     cats = Category.objects.get(cat_id=id) 
-    blog = Blogs.objects.filter(category=cats)  
-    context = {'catkey':cats,'blogkey':blog,'allcats':allCats}
+    blog = Blogs.objects.filter(category=cats) 
+
+    paginator = Paginator(blog, 4)
+    page_number = request.GET.get('page')
+    blog = paginator.get_page(page_number)
+    totalPages = blog.paginator.num_pages
+
+    context = {'catkey':cats,'blogkey':blog,'allcats':allCats,'changePages':[n+1 for n in range(totalPages)]}
     return render(request, 'blog/ReadCat.html',context)
 
 def blogPost(request,slug):
