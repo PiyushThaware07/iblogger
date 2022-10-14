@@ -48,7 +48,7 @@
 
 <body>
     <!-- Navbar start -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #9d24fb;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <div class="container-fluid">
             <a href="/" class="title-img"><img src="{% static 'img/logo.png' %}" alt="loading.."></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -77,9 +77,13 @@
                         </a>
                         <ul class="dropdown-menu">
                             {% block cat %}
+                            {% if cats %}
                             {% for cat in cats %}
                             <li><a class="dropdown-item" href="{% url 'blog-cat' cat.cat_id %}">{{cat.name}}</a></li>
                             {% endfor %}
+                            {% else %}
+                            <small>No Categories</small>
+                            {% endif %}
                             {% endblock cat %}
                         </ul>
                     </li>
