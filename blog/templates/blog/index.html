@@ -9,96 +9,141 @@
 {% endblock cat %}
 
 {% block content %}
-<div class="container-fluid p-5">
+{% load static %}
+<div class="container-fluid">
     <div class="row">
-        {% for post in recentkey %}
-        {% if forloop.counter < 3 %} {% if forloop.counter < 2 %} <h1 class="my-5"><b>Latest <span
-                    class="text-primary">Blogs</span></b></h1>
-            {% endif %}
-            <div class="col-md-6">
-                <div
-                    class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-success">Author : {{post.author}}</strong>
-                        <h4 class="mb-0">{{post.title}}</h4>
-                        <div class="mb-1 text-muted">{{post.publish_date}}</div>
-                        <p class="mb-auto">{{post.content|truncatechars:100|safe}}</p>
-                        <a href="{{post.slug}}" class="stretched-link">Continue reading </a>
-                    </div>
-                    <div class="col-auto d-none d-xl-block">
-                        <img src="/media/{{post.img}}" alt="not loading" width="300" height="260">
-                    </div>
+        <div class="col-lg-9 p-0">
+            <div class="col-12">
+                <!-- First Row -->
+                <div class="row p-3">
+                    {% for post in recentkey %}
+                    {% if forloop.counter < 3 %} {% if forloop.counter < 2 %} <h3 class="text-center my-3">Latest Blogs
+                        </h3>
+                        {% endif %}
+                        <div class="col-md-6 mb-5 mb-md-0">
+                            <div class="card shadow-sm">
+                                <img src="/media/{{post.img}}" alt="" width="100%" height="225">
+                                <div class="card-body">
+                                    <h4>{{post.title}}</h4>
+                                    <p class="card-text">{{post.content|truncatechars:100|safe}}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a href="{{post.slug}}"><button type="button"
+                                                    class="btn btn-sm btn-primary">Read</button></a>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
+                                        </div>
+                                        <small class="text-muted">Author : {{post.author}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                </div>
+
+
+                <!-- Second Row -->
+                <div class="row text-black p-3">
+                    {% for post in blogkey %}
+                    {% if forloop.counter < 2 %} <h3 class="text-center mt-2 mb-4">Previous Blogs</h3>
+                        {% endif %}
+                        <div class="col-md-6 mb-5 mt-md-1">
+                            <div class="card shadow-sm">
+                                <img src="/media/{{post.img}}" alt="" width="100%" height="225">
+                                <div class="card-body">
+                                    <h4>{{post.title}}</h4>
+                                    <p class="card-text">{{post.content|truncatechars:100|safe}}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a href="{{post.slug}}"><button type="button"
+                                                    class="btn btn-sm btn-primary">Read</button></a>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
+                                        </div>
+                                        <small class="text-muted">Author : {{post.author}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <!-- Pagination -->
+                        {% if blogkey %}
+                        <nav aria-label="Page navigation example" style="margin-top:10px;">
+                            <ul class="pagination">
+
+                                <!--Previous Page-->
+                                {% if blogkey.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link active" href="?page={{blogkey.previous_page_number}}"
+                                        aria-label="Previous">
+                                        <span aria-hidden="true">Pervious</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                <!--First Page By Default-->
+                                <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+
+                                {% for page in changePages %}
+                                {% if forloop.counter > 1 %}
+                                <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+                                {% endif %}
+
+                                {% endfor %}
+
+                                <!--Next Page-->
+                                {% if blogkey.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link active" href="?page={{blogkey.next_page_number}}"
+                                        aria-label="Next">
+                                        <span aria-hidden="true">Next</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+                        </nav>
+                        {% else %}
+                        {% endif %}
                 </div>
             </div>
-            {% endif %}
-            {% empty %}
-            <div class="emptyContainer mt-5">
-                <h1>No Post Yet !!!</h1>
-            </div>
-            {% endfor %}
+        </div>
 
 
+        <div class="col-md-3 d-none d-lg-block bg p-4">
             <div class="row">
-                {% for post in blogkey %}
-                {% if forloop.counter < 2 %} <div class="box mt-5 mx-2"
-                    style="width: 100%;height: 2px;background-color: black;">
+                <h5 class="text-left mt-2"><b>CATEGORIES</b></h5>
+                <hr>
+                <a href="#">Google</a>
+                <a href="#">Facebook</a>
+                <a href="#">Whatsapp</a>
             </div>
-            <h1 class="my-5"><b>Previous <span class="text-primary">Blogs</span></b></h1>
-            {% endif %}
-            <div class="col-md-6">
-                <div
-                    class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary">Author : {{post.author}}</strong>
-                        <h4 class="mb-0">{{post.title}}</h4>
-                        <div class="mb-1 text-muted">{{post.publish_date}}</div>
-                        <p class="card-text mb-auto">{{post.content|truncatechars:100|safe}}</p>
-                        <a href="{{post.slug}}" class="stretched-link">Continue reading</a>
-                    </div>
-                    <div class="col-auto d-none d-xl-block">
-                        <img src="/media/{{post.img}}" alt="not loading" width="300" height="260">
-                    </div>
-                </div>
+            <div class="row mt-5">
+                <h5>Social Media</h5>
+                <hr>
+                <a href="#">Google</a>
+                <a href="#">Facebook</a>
+                <a href="#">Whatsapp</a>
             </div>
-            {% endfor %}
-
-            <!--Paginator-->
-            {% if blogkey %}
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-
-                    <!--Previous Page-->
-                    {% if blogkey.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link active" href="?page={{blogkey.previous_page_number}}" aria-label="Previous">
-                            <span aria-hidden="true">Pervious</span>
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    <!--First Page By Default-->
-                    <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-
-                    {% for page in changePages %}
-                    {% if forloop.counter > 1 %}
-                    <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
-                    {% endif %}
-
-                    {% endfor %}
-
-                    <!--Next Page-->
-                    {% if blogkey.has_next %}
-                    <li class="page-item">
-                        <a class="page-link active" href="?page={{blogkey.next_page_number}}" aria-label="Next">
-                            <span aria-hidden="true">Next</span>
-                        </a>
-                    </li>
-                    {% endif %}
-
-                </ul>
-            </nav>
-            {% else %}
-            {% endif %}
+            <div class="row mt-5">
+                <h5>Latest Video</h5>
+                <video src="../../../static/videos/demo.mp4" controls muted></video>
+            </div>
+            <div class="row mt-5">
+                <h5>About Us</h5>
+                <hr>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis commodi vel rem odio est non
+                    excepturi maiores delectus facilis architecto.
+                </p>
+            </div>
+            <div class="row mt-5">
+                <h5>Latest Comments</h5>
+                <hr>
+                <p><b>Sam : </b>Lorem ipsum dolor sit amet.</p>
+                <p><b>Admin : </b>Lorem ipsum dolor sit amet.</p>
+                <p><b>Json : </b>Lorem ipsum dolor sit amet.</p>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}

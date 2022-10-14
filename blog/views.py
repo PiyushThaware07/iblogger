@@ -8,7 +8,7 @@ def index(request):
     blog = Blogs.objects.all()
 
     # Paginator
-    paginator = Paginator(blog, 1)
+    paginator = Paginator(blog, 4)
     page_number = request.GET.get('page')
     blog = paginator.get_page(page_number)
     totalPages = blog.paginator.num_pages

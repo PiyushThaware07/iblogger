@@ -22,3 +22,7 @@ section .videos video
     height: 300px;
     width: 300px;
 }
+body
+{
+    overflow-x: hidden;
+}
