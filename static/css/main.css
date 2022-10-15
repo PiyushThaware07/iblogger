@@ -1,8 +1,3 @@
-body
-{
-    overflow-x: hidden;
-}
-
 .container-fluid .title-img img
 {
     height: 50px;
@@ -19,4 +14,8 @@ body
 {
     height: 300px;
     width: 300px;
+}
+body
+{
+    overflow-x: hidden;
 }
