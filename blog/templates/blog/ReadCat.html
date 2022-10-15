@@ -2,6 +2,8 @@
 
 {% block title %}<title>Category</title>{% endblock title %}
 
+{% block active5 %}active{% endblock active5 %}
+
 {% block cat %}
 {% for cat in allcats %}
 <li><a class="dropdown-item" href="{% url 'blog-cat' cat.cat_id %}">{{cat.name}}</a></li>
@@ -9,7 +11,7 @@
 {% endblock cat %}
 
 {% block content %}
-<div class="p-4 p-md-5 mb-4 text-white row rounded bg-primary">
+<div class="p-4 p-md-5 mb-4 text-white row rounded bg-dark">
   {% for blog in blogkey %}
   {% if forloop.counter < 2 %} <h1 class="text-center text-white"
     style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: 600;">Blogs
@@ -22,6 +24,8 @@
     {% endfor %}
 </div>
 
+{% block auth %}
+{% if user.is_authenticated %}
 <div class="container">
   <div class="row">
     {% for blog in blogkey %}
@@ -75,4 +79,14 @@
   {% else %}
   {% endif %}
 </div>
+
+{% else %}
+<center>
+  <p>Login Please</p>
+  <a href="{% url 'signin-index' %}">login here</a>
+</center>
+
+{% endif %}
+{% endblock auth %}
+
 {% endblock content %}

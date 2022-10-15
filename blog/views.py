@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from . models import Blogs,Category
+from websites.models import About
 # Paginator 
 from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
+    aboutus = About.objects.all()[0:40]
     blog = Blogs.objects.all()
 
     # Paginator
@@ -15,7 +17,7 @@ def index(request):
 
     recent = Blogs.objects.all().order_by('-timeStamp')
     cat = Category.objects.all()
-    context = {'catkey':cat,'recentkey':recent,'blogkey':blog,'changePages':[n+1 for n in range(totalPages)]}
+    context = {'catkey':cat,'recentkey':recent,'blogkey':blog,'changePages':[n+1 for n in range(totalPages)],'about':aboutus}
     return render(request, 'blog/index.html',context)
 
 def ReadCat(request,id):

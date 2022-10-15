@@ -19,27 +19,9 @@
 </head>
 
 <body>
-    <div class="emptybox" id="ScrollAbout"></div>
-    <div class="container">
-        <div class="row"></div>
-        <h1 class="font-weight-bold">About Us</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem laudantium reprehenderit reiciendis?
-            Voluptates quisquam quibusdam qui inventore ipsum delectus ad. Asperiores in deserunt dolor animi corrupti
-            omnis? Tempore, ut, numquam aliquid cumque reprehenderit cupiditate similique, atque alias quae aut
-            consectetur illo error beatae eveniet omnis? Harum beatae, delectus praesentium nemo, quis reiciendis vero
-            molestias suscipit magni perspiciatis totam animi illo soluta. Sed porro sequi cumque vel minus, officiis
-            perspiciatis ducimus numquam deserunt? Corrupti accusamus a deserunt, fugit culpa ipsam labore magnam nam
-            velit rerum iste odio eveniet inventore error dolorum illum veniam? Aliquid necessitatibus eum nemo
-            repudiandae quia eos sunt dolor deleniti, quaerat asperiores sequi temporibus soluta illum consequatur ipsum
-            qui dolorem fuga ipsa autem voluptates. Dicta autem illo facilis officia. Numquam amet ex voluptas nisi
-            temporibus cum. Excepturi ipsam, esse placeat enim tempora velit molestiae magni nulla possimus, voluptates
-            fuga aliquam cupiditate, ullam nostrum at sapiente temporibus. Ratione aperiam iure dicta culpa ea rem est
-            id dolor odit, dolorum recusandae magni veritatis, error sunt alias illo officiis eligendi voluptas officia
-            eum. Facere quos natus cum cumque repellat delectus praesentium doloremque, accusantium obcaecati dicta
-            possimus laboriosam aperiam nulla commodi sed, ipsa voluptatem nisi vero sit temporibus tempore facilis,
-            aspernatur ut.
-        </p>
-    </div>
+        {% for a in about %}
+        {{a.content|safe}}
+        {% endfor %}
 </body>
 
 </html>

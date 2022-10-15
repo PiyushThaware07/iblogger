@@ -27,7 +27,7 @@
 
 
     <!-- Static file link -->
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!--<link rel="stylesheet" href="{% static 'css/main.css' %}"> -->
 
     <style>
         body {
@@ -41,6 +41,37 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+            display: flex;
+        }
+
+        #banner .container-fluid {
+            background-color: black;
+            opacity: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        #banner .container-fluid h1 {
+            position: absolute;
+            color: white;
+            font-weight: 700;
+            font-size: 6rem;
+        }
+
+        #banner .container-fluid a button {
+            margin-top: 125px;
+            /* margin-left: -100px; */
+            height: 40px;
+            width: 170px;
+            background: linear-gradient(to left, #ED01FE, red);
+            border-radius: 90px;
+            color: white;
+            font-weight: 500;
+            border: 0px;
         }
     </style>
 
@@ -48,7 +79,7 @@
 
 <body>
     <!-- Navbar start -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to left, #ED01FE, red);">
         <div class="container-fluid">
             <a href="/" class="title-img"><img src="{% static 'img/logo.png' %}" alt="loading.."></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -59,19 +90,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link  {% block active1 %}active{% endblock active1 %}" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/#ScrollAbout">About Us</a>
+                        <a class="nav-link {% block active2 %}{% endblock active2 %}" href="/#ScrollAbout">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact-index' %}">Contact Us</a>
+                        <a class="nav-link {% block active3 %}{% endblock active3 %}" href="{% url 'contact-index' %}">Contact Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog/">Blogs</a>
+                        <a class="nav-link {% block active4 %}{% endblock active4 %}" href="/blog/">Blogs</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle {% block active5 %}{% endblock active5 %}" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Category
                         </a>
@@ -82,7 +113,7 @@
                             <li><a class="dropdown-item" href="{% url 'blog-cat' cat.cat_id %}">{{cat.name}}</a></li>
                             {% endfor %}
                             {% else %}
-                            <small>No Categories</small>
+                            <li><a class="dropdown-item">No Category</a></li>
                             {% endif %}
                             {% endblock cat %}
                         </ul>
@@ -91,27 +122,62 @@
                 <form class="d-flex" role="search" method="get" action="{% url 'search-index' %}">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query"
                         id="query">
-                    <button class="btn btn-outline-light border border-2" type="submit">Search</button>
+                    <button class="btn btn-warning text-white" type="submit">Search</button>
+                    
+
+                    <div class="btn-group mx-2" role="group" aria-label="Basic mixed styles example">
+                        {% if user.is_authenticated %}
+                        <button type="button" class="btn btn-dark"><a href="{% url 'signout-index' %}"
+                                class="text-decoration-none text-white">SignOut</a></button>
+                        {% else %}
+                        <button type="button" class="btn btn-danger"><a href="{% url 'signup-index' %}"
+                                class="text-decoration-none text-white">SignUp</a></button>
+                        <button type="button" class="btn btn-dark"><a href="{% url 'signin-index' %}"
+                                class="text-decoration-none text-white">SignIn</a></button>
+                        {% endif %}
+                    </div>
                 </form>
             </div>
         </div>
     </nav>
     <!-- Navbar Ends -->
 
+    <!--alerts-->
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show m-0" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
     <div class="container-fluid bg-white p-0">
         {% block content %}
-        <div class="container-fluid" id="banner"></div>
+        <div class="container-fluid p-0" id="banner">
+            <div class="container-fluid">
+                <h1>iBLOGGER</h1>
+                <center>
+                    <a href="{% url 'blog-index' %}"><button type="button">EXPLORE</button></a>
+                </center>
+            </div>
+        </div>
         <section>
-            {% include 'websites/about.html' %}
+            <div class="emptybox" id="ScrollAbout"></div>
+            <div class="container">
+                <div class="row"></div>
+                <h1 class="mb-4">About Us</h1>
+                {% include 'websites/about.html' %}
+            </div>
         </section>
+
+        <!--Auth Permission-->
+        {% block auth %}{% if user.is_authenticated %}{% endif %}{% endblock auth %}
+        {% block authCategory %}{% if user.is_authenticated %}{% endif %}{% endblock authCategory %}
+
         {% endblock content %}
-
-        <!-- Footer -->
-        <footer class="d-flex flex-wrap footer border-top {% block fixed %}{% endblock fixed %}">
-            <p class="col-12 text-primary text-center mt-2">© Made by : Piyush Thaware</p>
-        </footer>
-
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"

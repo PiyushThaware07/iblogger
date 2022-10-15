@@ -9,10 +9,16 @@ height:40px;
 }
 {% endblock %}
 
+{% block active3 %}active{% endblock active3 %}
+
 {% block cat %}
+{% if cats %}
 {% for cat in cats %}
 <li><a class="dropdown-item" href="{% url 'blog-cat' cat.cat_id %}">{{cat.name}}</a></li>
 {% endfor %}
+{% else %}
+<li><a class="dropdown-item">No Category</a></li>
+{% endif %}
 {% endblock cat %}
 
 {% block content %}
@@ -33,7 +39,12 @@ height:40px;
             class="inputs col-lg-8 col-12 mb-3 p-3"><br>
         <textarea name="msg" cols="30" rows="7" placeholder="Enter Your Message"
             class="col-lg-8 col-12 mb-3 p-3"></textarea><br>
+
+        {% if user.is_authenticated %}
         <a href=""><button type="submit" class="btn btn-primary">Submit</button></a>
+        {% else %}
+        <p>Please SignUp or SignIn to your account in order to contact us</p>
+        {% endif %}
     </form>
 </div>
 {% endblock content %}

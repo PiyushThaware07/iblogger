@@ -1,0 +1,27 @@
+{% extends 'websites/home.html' %}
+
+{% block title %} <title>SignIn</title> {% endblock title %}
+
+{% block content %}
+<div class="container-fluid p-5"
+    style="background: url('/static/img/flower.jpg') no-repeat center;height: 100vh;width: 100%;background-size: cover;">
+    <center>
+        <h1 class="text-white" style="margin-top: 100px"><b>SignIn</b></h1>
+        <div class="col-lg-6 col-12">
+            <form action="" method="post">{% csrf_token %}
+                <div class="form-floating mt-3" style="width: 100%;">
+                    <input type="text" class="form-control" placeholder="User Name" id="floatinginput"
+                        style="opacity: 53%;" name="uname" required>
+                    <label for="floatinginput">Username</label>
+                </div>
+                <div class="form-floating mt-3" style="width: 100%;">
+                    <input type="password" class="form-control" placeholder="Password" id="floatinginput"
+                        style="opacity: 53%;" name="password" required>
+                    <label for="floatinginput">Password</label>
+                </div>
+                <a href="#"><button type="submit" class="btn btn-primary w-100 mt-3">SignIn</button></a>
+            </form>
+        </div>
+    </center>
+</div>
+{% endblock content %}

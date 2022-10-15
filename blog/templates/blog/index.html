@@ -2,11 +2,19 @@
 
 {% block title %}<title>Blog</title>{% endblock title %}
 
+
 {% block cat %}
+{% if catkey %}
 {% for cat in catkey %}
 <li><a class="dropdown-item" href="{% url 'blog-cat' cat.cat_id %}">{{cat.name}}</a></li>
 {% endfor %}
+{% else %}
+<li><a class="dropdown-item">No Category</a></li>
+{% endif %}
 {% endblock cat %}
+
+
+{% block active4 %}active{% endblock active4 %}
 
 {% block content %}
 {% load static %}
@@ -29,7 +37,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <a href="{{post.slug}}"><button type="button"
-                                                    class="btn btn-sm btn-primary">Read</button></a>
+                                                    class="btn btn-sm btn-danger">Read</button></a>
                                             <button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
                                         </div>
                                         <small class="text-muted">Author : {{post.author}}</small>
@@ -40,13 +48,15 @@
                         {% endif %}
                         {% empty %}
                         <div class="emptyContainer p-5">
-                           <h1><b>No Posts Yet !!!</b> </h1>
+                            <h1><b>No Posts Yet !!!</b> </h1>
                         </div>
                         {% endfor %}
                 </div>
 
 
                 <!-- Second Row -->
+                {% block auth %}
+                {% if user.is_authenticated %}
                 <div class="row text-black p-3">
                     {% for post in blogkey %}
                     {% if forloop.counter < 2 %} <h3 class="text-center mt-2 mb-4">Previous Blogs</h3>
@@ -60,7 +70,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <a href="{{post.slug}}"><button type="button"
-                                                    class="btn btn-sm btn-primary">Read</button></a>
+                                                    class="btn btn-sm btn-danger">Read</button></a>
                                             <button type="button" class="btn btn-sm btn-outline-secondary">Like</button>
                                         </div>
                                         <small class="text-muted">Author : {{post.author}}</small>
@@ -107,9 +117,20 @@
 
                             </ul>
                         </nav>
-                        {% else %}
+
+
                         {% endif %}
                 </div>
+                {% else %}
+                <center>
+                    <div class="container mt-5">
+                        <a href="{% url 'signup-index' %}"><button
+                                class="btn btn-outline-primary border border-2 border-primary">More Blogs</button></a>
+                    </div>
+                </center>
+                {% endif %}
+                {% endblock auth %}
+
             </div>
         </div>
 
@@ -118,9 +139,22 @@
             <div class="row">
                 <h5 class="text-left mt-2"><b>CATEGORIES</b></h5>
                 <hr>
-                <a href="#">Google</a>
-                <a href="#">Facebook</a>
-                <a href="#">Whatsapp</a>
+                {% block authCategory %}
+                {% if user.is_authenticated %}
+                {% if catkey %}
+                {% for cat in catkey %}
+                {% if forloop.counter < 5 %} <a href="{% url 'blog-cat' cat.cat_id %}">{{cat.name}}</a>
+                    {% endif %}
+                    {% endfor %}
+                    {% else %}
+                    <p>No Categorys</p>
+                    {% endif %}
+                    {% else %}
+                    <p>Login Please</p>
+                    {% endif %}
+                    {% endblock authCategory %}
+
+
             </div>
             <div class="row mt-5">
                 <h5>Social Media</h5>
@@ -136,9 +170,7 @@
             <div class="row mt-5">
                 <h5>About Us</h5>
                 <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis commodi vel rem odio est non
-                    excepturi maiores delectus facilis architecto.
-                </p>
+                {% include 'websites/about.html' %} <a href="/#ScrollAbout">read more...</a>
             </div>
             <div class="row mt-5">
                 <h5>Latest Comments</h5>
